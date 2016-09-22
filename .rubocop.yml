@@ -1,0 +1,53 @@
+LineLength:
+  Max: 200
+
+HashSyntax:
+  EnforcedStyle: ruby19
+
+Style/SpaceBeforeFirstArg:
+  Enabled: false
+
+Style/TrailingCommaInLiteral:
+  Enabled: false
+
+Style/TrailingCommaInArguments:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/MultilineBlockChain:
+  Disabled: true
+
+Metrics/CyclomaticComplexity:
+  Max: 20
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/MethodLength:
+  Max: 25
+
+Style/MultilineBlockChain:
+  Enabled: false
+
+Style/MultilineMethodCallIndentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Style/ZeroLengthPredicate:
+  Enabled: false
+
+AllCops:
+  Exclude:
+    - '*.gemspec'
+    - 'tasks/**/*'
+    - 'Rakefile'

@@ -1,0 +1,20 @@
+default: &default
+  adapter: <%= ENV.fetch('DB_ADAPTER') { 'postgresql' } %>
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host: <%= ENV.fetch('POSTGRESQL_HOST') {'localhost' } %>
+  port: <%= ENV.fetch('POSTGRESQL_PORT') { 5432 } %>
+
+test:
+  <<: *default
+  database: apisvc_test
+
+production:
+  <<: *default
+  database: apisvc_production
+  username: apisvc
+  password: <%= ENV['APISVC_DATABASE_PASSWORD'] %>
+
+development:
+  <<: *default
+  database: apisvc_development

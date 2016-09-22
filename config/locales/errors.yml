@@ -1,0 +1,8 @@
+en:
+  errors:
+    email?: Must be a E-mail
+    location_or_time?: Must be location or time
+    location?: Must be location
+    is_time?: Must be time
+    is_date?: "Must be date with format: hour:minutes day.month"
+    auto_date?: Must be end or beginning

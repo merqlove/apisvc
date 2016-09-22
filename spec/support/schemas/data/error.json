@@ -1,0 +1,9 @@
+{
+  "required": ["errors"],
+  "additionalProperties": false,
+  "properties": {
+    "errors" : {
+      "type": "object"
+    }
+  }
+}
