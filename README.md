@@ -1,12 +1,24 @@
 ## ApiSvc Ruby Backend
 
-### Dependencies:
+### Написать сервис с API.
+Сервис должен иметь один endpoint и предоставлять возможность версионирования (версия указывается в header'e запроса).
+Url endpoint'a - '/data'.
 
-- Ruby 2.3+
-- Rails 5.0
-- PostgreSQL
-- Memcached
-- Puma
+### Версионирование
+
+Передача версии осуществляется при помощи заголовка `Accept`, например:
+
+`application/vnd.apisvc.v1`
+
+В случае отсутствия заголовка используется версия по-умолчанию.
+
+### Правила
+
+Метод           | Путь              | Тип (параметр `type`) | Обязательные параметры | Доп. параметры |
+:----------------|:------------------|:-------| :-------------------- | :----------- |
+`POST` | `/data` | location | latitude `double`, longitude `double`, name `string` | timezone `-04:00` |
+`POST` | `/data` | time | value `15:30 11.09`, `end`, `beginning` | - |
+`GET` | `/data` | - | - | timezone `string` |
 
 ### Setup
 
@@ -22,13 +34,16 @@
         # Run project!
         $ bin/rails s     
                     
+### Dependencies:
+
+- Ruby 2.3+
+- Rails 5.0
+- PostgreSQL
+- Memcached
+- Puma
 
 #### Few words about:
 - This project is a little API app.
-
-### Написать сервис с API.
-Сервис должен иметь один endpoint и предоставлять возможность версионирования (версия указывается в header'e запроса).
-Url endpoint'a - '/data'.
 
 #### Post запрос:
 Обязательный параметр - type.  
@@ -56,14 +71,13 @@ Url endpoint'a - '/data'.
 Полученные данные сохраняются в бд.
 Время отдельно, локации отдельно.
 
-Get запрос:
+#### Get запрос:
 Единственный query параметр 'timezone' должен указывать на 'name' одного из хранимых 'location'.
 Endpoint должен возвращать список хранимых 'time' для указанной timezone.
 В случае отсутствия query параметра, либо пустого поля 'timezone' для указанного 'location', возвращать в utc.
+
 Использовать JSON API формат ответов. Добавить ошибки по своему усмотрению. Покрыть код тестами. Указать используемую database и web server.
 Сервис должен быть рассчитан на средне-высокую нагрузку.
-
-- All JSON data works via AMS.
 
 Copyright (c) 2016 Alexander Merkulov
 
