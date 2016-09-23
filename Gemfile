@@ -13,9 +13,7 @@ gem 'active_model_serializers', github: 'rails-api/active_model_serializers'
 # gem 'foreman', require: false
 
 # Validate
-gem 'dry-struct' # , github: 'dry-rb/dry-struct'
-gem 'dry-types', '~> 0.9', github: 'dry-rb/dry-types'
-gem 'dry-validation', github: 'dry-rb/dry-validation'
+gem 'dry-validation', '~> 0.10.0'
 
 # JSON
 gem 'oj'
@@ -53,7 +51,7 @@ group :development, :test do
   gem 'spring-commands-rspec'
   gem 'coveralls'
 
-  gem 'rspec-rails', '~> 3.5.0.beta3'
+  gem 'rspec-rails', '~> 3.5.0'
 end
 
 gem 'json_schema'
