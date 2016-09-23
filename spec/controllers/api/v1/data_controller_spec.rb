@@ -28,7 +28,7 @@ RSpec.describe Api::V1::DataController, type: :controller do
     { type: 'time', value: 'beginning' }
   end
 
-  let(:invalid_time__attributes) do
+  let(:invalid_time_attributes) do
     { type: 'time', value: '19:24 11.aa' }
   end
 
@@ -108,16 +108,40 @@ RSpec.describe Api::V1::DataController, type: :controller do
           expect(response).to have_http_status(200)
           expect(assigns(:time_data)).to be_a(TimeData)
           expect(assigns(:time_data)).to be_persisted
-          expect(assigns(:time_data).value.time_zone.name).to eq('Moscow')
+          expect(assigns(:time_data).value.time_zone.name).to eq('UTC')
           assert_response_schema('data/post.json')
         end
       end
 
       context 'with invalid params' do
         it 'unsaved time_data as @time_data' do
-          post :create, params: invalid_time__attributes, session: valid_session
+          post :create, params: invalid_time_attributes, session: valid_session
           expect(response).to have_http_status(422)
-          expect(assigns(:time_data)).to be_nil
+          expect(assigns(:time_data)).to be_a(TimeData)
+          expect(JSON.parse(response.body)['errors'].keys).to eq(['value'])
+          assert_response_schema('data/error.json')
+        end
+
+        it 'error 422 on invalid hours format' do
+          post :create, params: { type: 'time', value: '55:24 11.11' }, session: valid_session
+          expect(response).to have_http_status(422)
+          expect(assigns(:time_data)).to be_a(TimeData)
+          expect(JSON.parse(response.body)['errors'].keys).to eq(['value'])
+          assert_response_schema('data/error.json')
+        end
+
+        it 'error 422 on invalid month format' do
+          post :create, params: { type: 'time', value: '15:24 11.15' }, session: valid_session
+          expect(response).to have_http_status(422)
+          expect(assigns(:time_data)).to be_a(TimeData)
+          expect(JSON.parse(response.body)['errors'].keys).to eq(['value'])
+          assert_response_schema('data/error.json')
+        end
+
+        it 'error 422 on valid but wrong time format' do
+          post :create, params: { type: 'time', value: '25:24 11.11' }, session: valid_session
+          expect(response).to have_http_status(422)
+          expect(assigns(:time_data)).to be_a(TimeData)
           expect(JSON.parse(response.body)['errors'].keys).to eq(['value'])
           assert_response_schema('data/error.json')
         end

@@ -3,15 +3,31 @@ require 'rails_helper'
 RSpec.describe TimeHelpers do
   describe '#prepare_time_value' do
     it 'returns with end of day' do
-      expect(described_class.prepare_time_value('end')).to eq(Time.now.end_of_day.utc)
+      date = described_class.prepare_time_value('end')
+      expect(date.zone).to eq('UTC')
+      expect(date.hour).to eq(23)
+      expect(date.min).to eq(59)
     end
 
     it 'returns with beginning of the day' do
-      expect(described_class.prepare_time_value('beginning')).to eq(Time.now.beginning_of_day.utc)
+      date = described_class.prepare_time_value('beginning')
+      expect(date.zone).to eq('UTC')
+      expect(date.hour).to eq(0)
+      expect(date.min).to eq(0)
     end
 
     it 'returns parsed date' do
-      expect(described_class.prepare_time_value('10:33 11.11')).to eq(Time.strptime('10:33 11.11', '%H:%M %d.%m').in_time_zone)
+      date = described_class.prepare_time_value('10:33 11.11')
+      expect(date.zone).to eq('UTC')
+      expect(date.hour).to eq(10)
+      expect(date.min).to eq(33)
+      expect(date.day).to eq(11)
+      expect(date.month).to eq(11)
+    end
+
+    it 'returns nil' do
+      date = described_class.prepare_time_value('44:33 11.11')
+      expect(date).to be_nil
     end
   end
 

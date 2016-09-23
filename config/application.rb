@@ -46,6 +46,6 @@ module Apisvc
 
     config.autoload_paths += %W(#{config.root}/lib)
 
-    config.time_zone = 'Moscow'
+    config.time_zone = 'UTC'
   end
 end

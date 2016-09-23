@@ -17,7 +17,7 @@ Url endpoint'a - '/data'.
 Метод           | Путь              | Тип (параметр `type`) | Обязательные параметры | Доп. параметры |
 :----------------|:------------------|:-------| :-------------------- | :----------- |
 `POST` | `/data` | location | latitude `double`, longitude `double`, name `string` | timezone `-04:00` |
-`POST` | `/data` | time | value `15:30 11.09`, `end`, `beginning` | - |
+`POST` | `/data` | time | value `15:30 11.09` UTC, `end`, `beginning` | - |
 `GET` | `/data` | - | - | timezone `string` |
 
 ### Setup

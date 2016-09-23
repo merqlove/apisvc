@@ -2,11 +2,15 @@ module TimeHelpers
   def self.prepare_time_value(value)
     case value
     when 'end'
-      Time.now.end_of_day.utc
+      Time.zone.now.end_of_day
     when 'beginning'
-      Time.now.beginning_of_day.utc
+      Time.zone.now.beginning_of_day
     else
-      Time.strptime(value, '%H:%M %d.%m').in_time_zone
+      begin
+        Time.zone.strptime(value, '%H:%M %d.%m')
+      rescue => _e
+        nil
+      end
     end
   end
 
